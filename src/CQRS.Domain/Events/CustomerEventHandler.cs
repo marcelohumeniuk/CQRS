@@ -13,10 +13,10 @@ namespace CQRS.Domain.Events
     {
 
         // SERVICE RABBITMQ
-        private readonly IMessageService _messageService;
+        private readonly IProducerMessageService _messageService;
 
 
-        public CustomerEventHandler(IMessageService messageService)
+        public CustomerEventHandler(IProducerMessageService messageService)
         {
             _messageService = messageService;
         }

@@ -5,12 +5,12 @@ using System.Text;
 namespace CQRS.Infra.CrossCutting.RabbitMQ.Producer
 {
     // DEFINE INTERFACE AND SERVICE
-    public interface IMessageService
+    public interface IProducerMessageService
     {
         bool Enqueue(string message);
     }
 
-    public class MessageService : IMessageService
+    public class MessageService : IProducerMessageService
     {
         ConnectionFactory _factory;
         IConnection _conn;

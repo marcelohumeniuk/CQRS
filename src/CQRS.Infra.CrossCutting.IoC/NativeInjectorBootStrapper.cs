@@ -48,7 +48,7 @@ namespace CQRS.Infra.CrossCutting.IoC
             services.AddScoped<EventStoreSqlContext>();
 
             // Infra - Queue RabbitMQ
-            services.AddSingleton<IMessageService, MessageService>();
+            services.AddSingleton<IProducerMessageService, MessageService>();
            
             services.AddHostedService<ConsumingQueueService>();
 
