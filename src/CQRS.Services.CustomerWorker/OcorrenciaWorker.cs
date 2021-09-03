@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Services.CustomerWorker
 {
-    public class Worker : BackgroundService
+    public class OcorrenciaWorker : BackgroundService
     {
        
         private readonly ILogger _logger;
@@ -15,7 +15,7 @@ namespace CQRS.Services.CustomerWorker
         private ServiceBusProcessor processor;
         
 
-        public Worker(ILogger<Worker> logger, 
+        public OcorrenciaWorker(ILogger<OcorrenciaWorker> logger, 
             ServiceBusClient serviceBusClient)
         {
             _logger = logger;
