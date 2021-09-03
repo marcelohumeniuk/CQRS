@@ -49,7 +49,7 @@ namespace CQRS.Infra.CrossCutting.IoC
 
             // Infra - Queue RabbitMQ
             //services.AddSingleton<IProducerMessageService, MessageService>();
-            services.AddHostedService<ConsumingQueueService>();
+            //services.AddHostedService<ConsumingQueueService>();
 
 
         }
