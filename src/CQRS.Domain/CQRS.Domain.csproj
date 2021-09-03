@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CQRS.Domain.Core\CQRS.Domain.Core.csproj" />
+		<ProjectReference Include="..\CQRS.Infra.CrossCutting.Bus\CQRS.Infra.CrossCutting.Bus.csproj" />
+		<ProjectReference Include="..\CQRS.Infra.CrossCutting.RabbitMQ\CQRS.Infra.CrossCutting.Worker.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="10.0.0" />
+		<PackageReference Include="System.ComponentModel" Version="4.3.0" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.Security.Claims" Version="4.3.0" />
+	</ItemGroup>
+
+</Project>
