@@ -5,8 +5,6 @@ using CQRS.Domain.Core.Events;
 using CQRS.Domain.Events;
 using CQRS.Domain.Interfaces;
 using CQRS.Infra.CrossCutting.Bus;
-using CQRS.Infra.CrossCutting.RabbitMQ.Consumer;
-using CQRS.Infra.CrossCutting.RabbitMQ.Producer;
 using CQRS.Infra.Data.Context;
 using CQRS.Infra.Data.EventSourcing;
 using CQRS.Infra.Data.Repository;
@@ -47,9 +45,10 @@ namespace CQRS.Infra.CrossCutting.IoC
             services.AddScoped<IEventStore, SqlEventStore>();
             services.AddScoped<EventStoreSqlContext>();
 
+
+
             // Infra - Queue RabbitMQ
-            services.AddSingleton<IProducerMessageService, MessageService>();
-           
+            //services.AddSingleton<IProducerMessageService, MessageService>();
             services.AddHostedService<ConsumingQueueService>();
 
 
