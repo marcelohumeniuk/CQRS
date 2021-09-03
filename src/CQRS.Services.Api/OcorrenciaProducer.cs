@@ -1,7 +1,5 @@
 ﻿using Azure.Messaging.ServiceBus;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CQRS.Services.Api
@@ -16,17 +14,13 @@ namespace CQRS.Services.Api
         }
 
         public async Task SendMessageOcorrencia() {
-
             
             string queueName = "ocorrencia";
-            // since ServiceBusClient implements IAsyncDisposable we create it with "await using"
-            //await using var client = new ServiceBusClient(serviceBusClient. connectionString);
 
-            // create the sender
+            // CREATE THE SENDER
             ServiceBusSender sender = serviceBusClient.CreateSender(queueName);
 
-            // create a message that we can send. UTF-8 encoding is used when providing a string.
-
+            // CREATE A MESSAGE THAT WE CAN SEND. UTF-8 ENCODING IS USED WHEN PROVIDING A STRING.
             ServiceBusMessage message = new ServiceBusMessage("Hello world!" + DateTime.Now.ToString());            // send the message
             await sender.SendMessageAsync(message);
          

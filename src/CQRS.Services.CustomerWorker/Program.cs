@@ -18,7 +18,7 @@ namespace CQRS.Services.CustomerWorker
 
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Worker>();
+                    services.AddHostedService<OcorrenciaWorker>();
 
                     services.AddAzureClients(builder =>
                     {
