@@ -3,12 +3,12 @@ using CQRS.Services.Api.Configurations;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDevPack.Identity;
 using NetDevPack.Identity.User;
-using Azure.Messaging.ServiceBus;
 
 namespace CQRS.Services.Api
 {
@@ -34,6 +34,12 @@ namespace CQRS.Services.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAzureClients(builder =>
+            {
+                builder.AddServiceBusClient(Configuration.GetConnectionString("ServiceBus"));
+            });
+
 
             // WebAPI Config
             services.AddControllers();
