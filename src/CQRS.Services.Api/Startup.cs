@@ -41,6 +41,8 @@ namespace CQRS.Services.Api
             });
 
 
+            services.AddSingleton<OcorrenciaProducer>();
+
             // WebAPI Config
             services.AddControllers();
 

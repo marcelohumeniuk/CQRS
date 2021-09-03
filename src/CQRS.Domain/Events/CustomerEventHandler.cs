@@ -12,12 +12,12 @@ namespace CQRS.Domain.Events
     {
 
         // SERVICE RABBITMQ
-        private readonly IProducerMessageService _messageService;
+        //private readonly IProducerMessageService _messageService;
 
 
         public CustomerEventHandler()
         {
-            _messageService = messageService;
+            //_messageService = messageService;
         }
 
         public Task Handle(CustomerUpdatedEvent message, CancellationToken cancellationToken)
@@ -25,7 +25,7 @@ namespace CQRS.Domain.Events
             // Send some notification e-mail
 
             var resultado = JsonConvert.SerializeObject(message);
-            _messageService.Enqueue(resultado);
+            //_messageService.Enqueue(resultado);
 
             return Task.CompletedTask;
         }
@@ -35,7 +35,7 @@ namespace CQRS.Domain.Events
             // Send some greetings e-mail
 
             var resultado = JsonConvert.SerializeObject(message);
-            _messageService.Enqueue(resultado);
+            //_messageService.Enqueue(resultado);
 
             return Task.CompletedTask;
         }
@@ -45,7 +45,7 @@ namespace CQRS.Domain.Events
             // Send some see you soon e-mail
 
             var resultado = JsonConvert.SerializeObject(message);
-            _messageService.Enqueue(resultado);
+            //_messageService.Enqueue(resultado);
 
             return Task.CompletedTask;
         }

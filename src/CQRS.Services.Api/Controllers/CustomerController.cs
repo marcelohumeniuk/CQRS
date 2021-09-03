@@ -14,16 +14,21 @@ namespace CQRS.Services.Api.Controllers
     public class CustomerController : ApiController
     {
         private readonly ICustomerAppService _customerAppService;
+        private readonly OcorrenciaProducer _ocorrenciaProducer;
 
-        public CustomerController(ICustomerAppService customerAppService)
+        public CustomerController(ICustomerAppService customerAppService, 
+            OcorrenciaProducer ocorrenciaProducer)
         {
             _customerAppService = customerAppService;
+            _ocorrenciaProducer = ocorrenciaProducer;
         }
 
         [AllowAnonymous]
         [HttpGet("customer-management")]
         public async Task<IEnumerable<CustomerViewModel>> Get()
         {
+          await  _ocorrenciaProducer.SendMessageOcorrencia();
+
             return await _customerAppService.GetAll();
         }
 
