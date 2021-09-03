@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDevPack.Identity;
 using NetDevPack.Identity.User;
+using Azure.Messaging.ServiceBus;
 
 namespace CQRS.Services.Api
 {
@@ -33,6 +34,7 @@ namespace CQRS.Services.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             // WebAPI Config
             services.AddControllers();
 

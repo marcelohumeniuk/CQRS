@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Infra.CrossCutting.Ide
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Infra.CrossCutting.Bus", "src\CQRS.Infra.CrossCutting.Bus\CQRS.Infra.CrossCutting.Bus.csproj", "{E8999EDB-F8E3-467A-87B8-3D6647780345}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Services.FuncionarioWorker", "src\CQRS.Services.CustomerWorker\CQRS.Services.FuncionarioWorker.csproj", "{908E7B31-128F-4277-B75F-7CAFACFA1FC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Services.OcorrenciaWorker", "src\CQRS.Services.CustomerWorker\CQRS.Services.OcorrenciaWorker.csproj", "{908E7B31-128F-4277-B75F-7CAFACFA1FC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

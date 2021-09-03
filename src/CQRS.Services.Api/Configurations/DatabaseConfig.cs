@@ -20,6 +20,11 @@ namespace CQRS.Services.Api.Configurations
 
             services.AddDbContext<EventStoreSqlContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddDbContext<EventStoreSqlContext>(options =>
+               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
         }
     }
 }
