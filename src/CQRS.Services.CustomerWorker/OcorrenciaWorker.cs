@@ -44,7 +44,7 @@ namespace CQRS.Services.CustomerWorker
 
                 Console.ReadKey();
 
-                // HANDLE RECEIVED MESSAGES
+                // HANDLE RECEIVED MESSAGES .....
                 static async Task ProcessMessagesAsync(ProcessMessageEventArgs args)
                 {
                     string body = args.Message.Body.ToString();
