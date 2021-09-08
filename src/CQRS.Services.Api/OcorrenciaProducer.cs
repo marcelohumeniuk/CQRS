@@ -17,12 +17,23 @@ namespace CQRS.Services.Api
             
             string queueName = "ocorrencia";
 
-            // CREATE THE SENDER
-            ServiceBusSender sender = serviceBusClient.CreateSender(queueName);
 
-            // CREATE A MESSAGE THAT WE CAN SEND. UTF-8 ENCODING IS USED WHEN PROVIDING A STRING.
-            ServiceBusMessage message = new ServiceBusMessage("TESTANDO SEVICE BUS CQRS!" + DateTime.Now.ToString());            // send the message
-            await sender.SendMessageAsync(message);
+            try
+            {
+                // CREATE THE SENDER
+                ServiceBusSender sender = serviceBusClient.CreateSender(queueName);
+
+                // CREATE A MESSAGE THAT WE CAN SEND. UTF-8 ENCODING IS USED WHEN PROVIDING A STRING.
+                ServiceBusMessage message = new ServiceBusMessage("TESTANDO SEVICE BUS CQRS!" + DateTime.Now.ToString());            // send the message
+                await sender.SendMessageAsync(message);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
          
 
         }
