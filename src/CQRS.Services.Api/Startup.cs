@@ -1,14 +1,20 @@
 using CQRS.Infra.CrossCutting.Identity;
 using CQRS.Services.Api.Configurations;
+using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDevPack.Identity;
 using NetDevPack.Identity.User;
+using System;
+using System.Net.Mime;
+using System.Text.Json;
 
 namespace CQRS.Services.Api
 {
@@ -35,10 +41,21 @@ namespace CQRS.Services.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHealthChecks()  //.AddServiceBusClient()
+
+
+           .AddSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+               name: "sqlserver", tags: new string[] { "db", "data" });
+
+            services.AddHealthChecksUI()
+                .AddInMemoryStorage();
+
+
+
             services.AddAzureClients(builder =>
-            {
-                builder.AddServiceBusClient(Configuration.GetConnectionString("ServiceBus"));
-            });
+                {
+                    builder.AddServiceBusClient(Configuration.GetConnectionString("ServiceBus"));
+                });
 
 
             services.AddSingleton<OcorrenciaProducer>();
@@ -68,7 +85,7 @@ namespace CQRS.Services.Api
             // .NET Native DI Abstraction
             services.AddDependencyInjectionConfiguration();
         }
-    
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -96,6 +113,41 @@ namespace CQRS.Services.Api
             });
 
             app.UseSwaggerSetup();
+
+            // SABER STATUS POR JSON
+            //app.UseHealthChecks("/status-json",
+            //    new HealthCheckOptions()
+            //    {
+            //        ResponseWriter = async (context, report) =>
+            //        {
+            //            var result = JsonSerializer.Serialize(
+            //                new
+            //                {
+            //                    currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            //                    statusApplication = report.Status.ToString(),
+            //                });
+
+            //            context.Response.ContentType = MediaTypeNames.Application.Json;
+            //            await context.Response.WriteAsync(result);
+            //        }
+            //    });
+
+
+            // GERA O ENDPOINT QUE RETORNARÁ OS DADOS UTILIZADOS NO DASHBOARD
+            app.UseHealthChecks("/healthchecks-data-ui", new HealthCheckOptions()
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+
+            // ATIVA O DASHBOARD PARA A VISUALIZAÇÃO DA SITUAÇÃO DE CADA HEALTH CHECK
+            app.UseHealthChecksUI(options =>
+            {
+                options.UIPath = "/monitor";
+            });
+
+
+
         }
     }
 }

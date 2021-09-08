@@ -39,21 +39,21 @@ namespace CQRS.Services.Api.Controllers
             return await _customerAppService.GetById(id);
         }
 
-        [CustomAuthorize("Customers", "Write")]
+        //[CustomAuthorize("Customers", "Write")]
         [HttpPost("customer-management")]
         public async Task<IActionResult> Post([FromBody]CustomerViewModel customerViewModel)
         {
             return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _customerAppService.Register(customerViewModel));
         }
 
-        [CustomAuthorize("Customers", "Write")]
+        //[CustomAuthorize("Customers", "Write")]
         [HttpPut("customer-management")]
         public async Task<IActionResult> Put([FromBody]CustomerViewModel customerViewModel)
         {
             return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _customerAppService.Update(customerViewModel));
         }
 
-        [CustomAuthorize("Customers", "Remove")]
+        //[CustomAuthorize("Customers", "Remove")]
         [HttpDelete("customer-management")]
         public async Task<IActionResult> Delete(Guid id)
         {

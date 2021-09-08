@@ -30,7 +30,7 @@ namespace CQRS.Services.CustomerWorker
             var options = new ServiceBusProcessorOptions
             {
                 MaxConcurrentCalls = 1,
-                AutoCompleteMessages = false,
+                AutoCompleteMessages = true,
             };
 
             processor = _serviceBusClient.CreateProcessor(queueName, options);
@@ -56,6 +56,7 @@ namespace CQRS.Services.CustomerWorker
 
                 static Task ProcessErrorAsync(ProcessErrorEventArgs arg)
                 {
+                    
                     //_logger.LogError(arg.Exception, "Message handler encountered an exception");
                     //_logger.LogDebug($"- ErrorSource: {arg.ErrorSource}");
                     //_logger.LogDebug($"- Entity Path: {arg.EntityPath}");

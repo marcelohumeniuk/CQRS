@@ -16,7 +16,7 @@ namespace CQRS.Services.Api.Configurations
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "CQRS Project",
+                    Title = "CQRS Project Versão 1",
                     Description = "CQRS API Swagger surface"
                    
                 });

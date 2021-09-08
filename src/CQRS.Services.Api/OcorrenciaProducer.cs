@@ -21,7 +21,7 @@ namespace CQRS.Services.Api
             ServiceBusSender sender = serviceBusClient.CreateSender(queueName);
 
             // CREATE A MESSAGE THAT WE CAN SEND. UTF-8 ENCODING IS USED WHEN PROVIDING A STRING.
-            ServiceBusMessage message = new ServiceBusMessage("Hello world!" + DateTime.Now.ToString());            // send the message
+            ServiceBusMessage message = new ServiceBusMessage("TESTANDO SEVICE BUS CQRS!" + DateTime.Now.ToString());            // send the message
             await sender.SendMessageAsync(message);
          
 
