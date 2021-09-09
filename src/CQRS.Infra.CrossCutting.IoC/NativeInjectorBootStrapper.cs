@@ -20,31 +20,31 @@ namespace CQRS.Infra.CrossCutting.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            // Domain Bus (Mediator)
+            // DOMAIN BUS (MEDIATOR)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
 
-            // Application
+            // APPLICATION
             services.AddScoped<ICustomerAppService, CustomerAppService>();
 
-            // Domain - Events
+            // DOMAIN - EVENTS
             services.AddScoped<INotificationHandler<CustomerRegisteredEvent>, CustomerEventHandler>();
             services.AddScoped<INotificationHandler<CustomerUpdatedEvent>, CustomerEventHandler>();
             services.AddScoped<INotificationHandler<CustomerRemovedEvent>, CustomerEventHandler>();
 
-            // Domain - Commands
+            // DOMAIN - COMMANDS
             services.AddScoped<IRequestHandler<RegisterNewCustomerCommand, ValidationResult>, CustomerCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateCustomerCommand, ValidationResult>, CustomerCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveCustomerCommand, ValidationResult>, CustomerCommandHandler>();
 
-            // Infra - Data
+            // INFRA - DATA
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<CQRSContext>();
 
-            // Infra - Data EventSourcing
+            // INFRA - DATA EVENTSOURCING
             services.AddScoped<IEventStoreRepository, EventStoreSqlRepository>();
             services.AddScoped<IEventStore, SqlEventStore>();
             services.AddScoped<EventStoreSqlContext>();
-            
+
 
             // Infra - Queue RabbitMQ
             //services.AddSingleton<IProducerMessageService, MessageService>();

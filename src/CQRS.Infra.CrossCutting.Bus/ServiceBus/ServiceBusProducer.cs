@@ -10,7 +10,7 @@ namespace CQRS.Infra.CrossCutting.Bus.ServiceBus
         private readonly ILogger _logger;
         private readonly ServiceBusClient serviceBusClient;
 
-        public ServiceBusProducer(ServiceBusClient serviceBusClient, ILogger logger)
+        public ServiceBusProducer(ServiceBusClient serviceBusClient, ILogger<ServiceBusProducer> logger)
         {
             _logger = logger;
             this.serviceBusClient = serviceBusClient;
@@ -33,6 +33,8 @@ namespace CQRS.Infra.CrossCutting.Bus.ServiceBus
           when (ex.Reason == ServiceBusFailureReason.ServiceTimeout)
             {
                 _logger.LogInformation("ServiceBusFailureReason", ex.Data);
+             
+                
                 // Take action based on a service timeout
             }
 

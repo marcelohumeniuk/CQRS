@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CQRS.Application\CQRS.Application.csproj" />
+    <ProjectReference Include="..\CQRS.Domain\CQRS.Domain.csproj" />
     <ProjectReference Include="..\CQRS.Infra.CrossCutting.Bus\CQRS.Infra.CrossCutting.Bus.csproj" />
   </ItemGroup>
 </Project>

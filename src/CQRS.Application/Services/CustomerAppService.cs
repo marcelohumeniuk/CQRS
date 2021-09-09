@@ -21,19 +21,19 @@ namespace CQRS.Application.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly IEventStoreRepository _eventStoreRepository;
         private readonly IMediatorHandler _mediator;
-        private readonly ServiceBusProducer serviceBusProducer;
+        private readonly ServiceBusProducer _serviceBusProducer;
 
         public CustomerAppService(IMapper mapper,
                                   ICustomerRepository customerRepository,
                                   IMediatorHandler mediator,
-                                  ServiceBusProducer _serviceBusProducer,
-                                  IEventStoreRepository eventStoreRepository)
+                                  IEventStoreRepository eventStoreRepository,
+                                  ServiceBusProducer serviceBusProducer)
         {
             _mapper = mapper;
             _customerRepository = customerRepository;
             _mediator = mediator;
-            _serviceBusProducer = serviceBusProducer;
             _eventStoreRepository = eventStoreRepository;
+            _serviceBusProducer = serviceBusProducer;
         }
 
         public async Task<IEnumerable<CustomerViewModel>> GetAll()
@@ -53,9 +53,7 @@ namespace CQRS.Application.Services
 
             if (retorno.IsValid && !retorno.Errors.Any())
             {
-                var mg = new Funcionario { Nome = "SERVIDOR", Matricula = 12345678, Status = "INATIVO" };
-
-                await serviceBusProducer.SendSBMessage(QueueName.Ocorrencia, mg);
+                await _serviceBusProducer.SendSBMessage(QueueName.Ocorrencia, registerCommand);
             }
 
             return retorno;

@@ -38,16 +38,13 @@ namespace CQRS.Services.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddHealthChecks()  //.AddServiceBusClient()
+            services.AddHealthChecks()  //.AddServiceBusClient<ServiceBusClient>
 
-
-           .AddSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+           .AddSqlServer( Configuration.GetConnectionString("DefaultConnection"),
                name: "sqlserver", tags: new string[] { "db", "data" });
 
             services.AddHealthChecksUI()
                 .AddInMemoryStorage();
-
-
 
             services.AddAzureClients(builder =>
                 {
@@ -55,32 +52,33 @@ namespace CQRS.Services.Api
                 });
 
 
-            //services.AddSingleton<OcorrenciaProducer>();
+            services.AddSingleton<OcorrenciaProducer>();
+
             services.AddSingleton<ServiceBusProducer>();
 
-            // WebAPI Config
+            // WEBAPI CONFIG
             services.AddControllers();
 
-            // Setting DBContexts
+            // SETTING DBCONTEXTS
             services.AddDatabaseConfiguration(Configuration);
 
-            // ASP.NET Identity Settings & JWT
+            // ASP.NET IDENTITY SETTINGS & JWT
             services.AddApiIdentityConfiguration(Configuration);
 
-            // Interactive AspNetUser (logged in)
-            // NetDevPack.Identity dependency
+            // INTERACTIVE ASPNETUSER (LOGGED IN)
+            // NETDEVPACK.IDENTITY DEPENDENCY
             services.AddAspNetUserConfiguration();
 
-            // AutoMapper Settings
+            // AUTOMAPPER SETTINGS
             services.AddAutoMapperConfiguration();
 
-            // Swagger Config
+            // SWAGGER CONFIG
             services.AddSwaggerConfiguration();
 
-            // Adding MediatR for Domain Events and Notifications
+            // ADDING MEDIATR FOR DOMAIN EVENTS AND NOTIFICATIONS
             services.AddMediatR(typeof(Startup));
 
-            // .NET Native DI Abstraction
+            // .NET NATIVE DI ABSTRACTION
             services.AddDependencyInjectionConfiguration();
         }
 
@@ -102,7 +100,7 @@ namespace CQRS.Services.Api
                 c.AllowAnyOrigin();
             });
 
-            // NetDevPack.Identity dependency
+            // NETDEVPACK.IDENTITY DEPENDENCY
             app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
@@ -111,24 +109,6 @@ namespace CQRS.Services.Api
             });
 
             app.UseSwaggerSetup();
-
-            // SABER STATUS POR JSON
-            //app.UseHealthChecks("/status-json",
-            //    new HealthCheckOptions()
-            //    {
-            //        ResponseWriter = async (context, report) =>
-            //        {
-            //            var result = JsonSerializer.Serialize(
-            //                new
-            //                {
-            //                    currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-            //                    statusApplication = report.Status.ToString(),
-            //                });
-
-            //            context.Response.ContentType = MediaTypeNames.Application.Json;
-            //            await context.Response.WriteAsync(result);
-            //        }
-            //    });
 
 
             // GERA O ENDPOINT QUE RETORNARÁ OS DADOS UTILIZADOS NO DASHBOARD
@@ -143,7 +123,6 @@ namespace CQRS.Services.Api
             {
                 options.UIPath = "/monitor";
             });
-
 
 
         }

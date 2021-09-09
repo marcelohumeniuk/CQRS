@@ -13,13 +13,13 @@ namespace CQRS.Services.Api.Controllers
     public class CustomerController : ApiController
     {
         private readonly ICustomerAppService _customerAppService;
-        private readonly OcorrenciaProducer _ocorrenciaProducer;
+        //private readonly OcorrenciaProducer _ocorrenciaProducer;
 
-        public CustomerController(ICustomerAppService customerAppService, 
-            OcorrenciaProducer ocorrenciaProducer)
+        public CustomerController(ICustomerAppService customerAppService)
+            //OcorrenciaProducer ocorrenciaProducer)
         {
             _customerAppService = customerAppService;
-            _ocorrenciaProducer = ocorrenciaProducer;
+            //_ocorrenciaProducer = ocorrenciaProducer;
         }
 
         [AllowAnonymous]
@@ -37,6 +37,7 @@ namespace CQRS.Services.Api.Controllers
             return await _customerAppService.GetById(id);
         }
 
+        [AllowAnonymous]
         //[CustomAuthorize("Customers", "Write")]
         [HttpPost("customer-management")]
         public async Task<IActionResult> Post([FromBody]CustomerViewModel customerViewModel)

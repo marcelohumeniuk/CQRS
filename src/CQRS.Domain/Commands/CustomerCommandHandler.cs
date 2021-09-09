@@ -1,14 +1,13 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using CQRS.Domain.Core;
+﻿using CQRS.Domain.Core;
 using CQRS.Domain.Events;
 using CQRS.Domain.Interfaces;
 using CQRS.Domain.Models;
-using CQRS.Infra.CrossCutting.Bus.ServiceBus;
 using FluentValidation.Results;
 using MediatR;
 using NetDevPack.Messaging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CQRS.Domain.Commands
 {
