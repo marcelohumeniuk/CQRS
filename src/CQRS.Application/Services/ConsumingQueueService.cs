@@ -1,25 +1,6 @@
-﻿using AutoMapper;
-using CQRS.Application.Interfaces;
-using CQRS.Application.ViewModels;
-using CQRS.Domain.Core;
-using CQRS.Domain.Core.Events;
-using CQRS.Domain.Interfaces;
-using CQRS.Domain.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using NetDevPack.Data;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace CQRS.Application.Services
+﻿namespace CQRS.Application.Services
 {
-   
+
     //public class ConsumingQueueService : BackgroundService
     //{ 
     //    private IServiceProvider _sp;
@@ -88,9 +69,9 @@ namespace CQRS.Application.Services
     //                        appService.Update(customer, TypeDB.StoreRead);
     //                    }
 
-                       
 
-                       
+
+
 
 
     //                    //appService.Update(customer);

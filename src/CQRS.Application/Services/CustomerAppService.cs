@@ -53,7 +53,7 @@ namespace CQRS.Application.Services
 
             if (retorno.IsValid && !retorno.Errors.Any())
             {
-                var mg = new { NOME = "SERVIDOR", MATRICULA = 12345678, STATUS = "INATIVO" };
+                var mg = new Funcionario { Nome = "SERVIDOR", Matricula = 12345678, Status = "INATIVO" };
 
                 await serviceBusProducer.SendSBMessage(QueueName.Ocorrencia, mg);
             }

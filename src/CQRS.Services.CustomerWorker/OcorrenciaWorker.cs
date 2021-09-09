@@ -1,7 +1,9 @@
 using Azure.Messaging.ServiceBus;
+using CQRS.Infra.CrossCutting.Bus.ServiceBus;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -48,7 +50,10 @@ namespace CQRS.Services.CustomerWorker
                 static async Task ProcessMessagesAsync(ProcessMessageEventArgs args)
                 {
                     string body = args.Message.Body.ToString();
-                    Console.WriteLine($"Received: {body}");
+
+                    var message = JsonSerializer.Deserialize<Funcionario>(body);
+
+                    Console.WriteLine($"Received: {message}");
 
                     // COMPLETE THE MESSAGE. MESSAGES IS DELETED FROM THE QUEUE. 
                     await args.CompleteMessageAsync(args.Message);
@@ -56,7 +61,6 @@ namespace CQRS.Services.CustomerWorker
 
                 static Task ProcessErrorAsync(ProcessErrorEventArgs arg)
                 {
-                    
                     //_logger.LogError(arg.Exception, "Message handler encountered an exception");
                     //_logger.LogDebug($"- ErrorSource: {arg.ErrorSource}");
                     //_logger.LogDebug($"- Entity Path: {arg.EntityPath}");

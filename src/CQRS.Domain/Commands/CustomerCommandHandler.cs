@@ -40,8 +40,6 @@ namespace CQRS.Domain.Commands
 
             _customerRepository.Add(customer, TypeDB.StorePrincial);
 
-            ServiceBusProducer
-
             return await Commit(_customerRepository.UnitOfWork);
         }
 
