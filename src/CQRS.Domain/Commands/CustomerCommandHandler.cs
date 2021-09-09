@@ -5,6 +5,7 @@ using CQRS.Domain.Core;
 using CQRS.Domain.Events;
 using CQRS.Domain.Interfaces;
 using CQRS.Domain.Models;
+using CQRS.Infra.CrossCutting.Bus.ServiceBus;
 using FluentValidation.Results;
 using MediatR;
 using NetDevPack.Messaging;
@@ -38,6 +39,8 @@ namespace CQRS.Domain.Commands
             customer.AddDomainEvent(new CustomerRegisteredEvent(customer.Id, customer.Name, customer.Email, customer.BirthDate));
 
             _customerRepository.Add(customer, TypeDB.StorePrincial);
+
+            ServiceBusProducer
 
             return await Commit(_customerRepository.UnitOfWork);
         }

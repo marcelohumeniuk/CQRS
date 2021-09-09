@@ -1,3 +1,4 @@
+using CQRS.Infra.CrossCutting.Bus.ServiceBus;
 using CQRS.Infra.CrossCutting.Identity;
 using CQRS.Services.Api.Configurations;
 using HealthChecks.UI.Client;
@@ -58,7 +59,8 @@ namespace CQRS.Services.Api
                 });
 
 
-            services.AddSingleton<OcorrenciaProducer>();
+            //services.AddSingleton<OcorrenciaProducer>();
+            services.AddSingleton<ServiceBusProducer>();
 
             // WebAPI Config
             services.AddControllers();

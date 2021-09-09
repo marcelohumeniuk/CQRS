@@ -7,7 +7,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CQRS.Domain.Core\CQRS.Domain.Core.csproj" />
 		<ProjectReference Include="..\CQRS.Infra.CrossCutting.Bus\CQRS.Infra.CrossCutting.Bus.csproj" />
-		<ProjectReference Include="..\CQRS.Infra.CrossCutting.RabbitMQ\CQRS.Infra.CrossCutting.Worker.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

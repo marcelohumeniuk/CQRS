@@ -8,7 +8,6 @@
 		<ProjectReference Include="..\CQRS.Application\CQRS.Application.csproj" />
 		<ProjectReference Include="..\CQRS.Domain\CQRS.Domain.csproj" />
 		<ProjectReference Include="..\CQRS.Infra.CrossCutting.Identity\CQRS.Infra.CrossCutting.Identity.csproj" />
-		<ProjectReference Include="..\CQRS.Infra.CrossCutting.RabbitMQ\CQRS.Infra.CrossCutting.Worker.csproj" />
 		<ProjectReference Include="..\CQRS.Infra.Data\CQRS.Infra.Data.csproj" />
 	</ItemGroup>
 

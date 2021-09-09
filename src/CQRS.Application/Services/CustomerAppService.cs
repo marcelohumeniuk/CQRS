@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CQRS.Application.EventSourcedNormalizers;
@@ -7,6 +8,7 @@ using CQRS.Application.Interfaces;
 using CQRS.Application.ViewModels;
 using CQRS.Domain.Commands;
 using CQRS.Domain.Interfaces;
+using CQRS.Infra.CrossCutting.Bus.ServiceBus;
 using CQRS.Infra.Data.Repository.EventSourcing;
 using FluentValidation.Results;
 using NetDevPack.Mediator;
@@ -19,15 +21,18 @@ namespace CQRS.Application.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly IEventStoreRepository _eventStoreRepository;
         private readonly IMediatorHandler _mediator;
+        private readonly ServiceBusProducer serviceBusProducer;
 
         public CustomerAppService(IMapper mapper,
                                   ICustomerRepository customerRepository,
                                   IMediatorHandler mediator,
+                                  ServiceBusProducer _serviceBusProducer,
                                   IEventStoreRepository eventStoreRepository)
         {
             _mapper = mapper;
             _customerRepository = customerRepository;
             _mediator = mediator;
+            _serviceBusProducer = serviceBusProducer;
             _eventStoreRepository = eventStoreRepository;
         }
 
@@ -44,7 +49,16 @@ namespace CQRS.Application.Services
         public async Task<ValidationResult> Register(CustomerViewModel customerViewModel)
         {
             var registerCommand = _mapper.Map<RegisterNewCustomerCommand>(customerViewModel);
-            return await _mediator.SendCommand(registerCommand);
+            var retorno = await _mediator.SendCommand(registerCommand);
+
+            if (retorno.IsValid && !retorno.Errors.Any())
+            {
+                var mg = new { NOME = "SERVIDOR", MATRICULA = 12345678, STATUS = "INATIVO" };
+
+                await serviceBusProducer.SendSBMessage(QueueName.Ocorrencia, mg);
+            }
+
+            return retorno;
         }
 
         public async Task<ValidationResult> Update(CustomerViewModel customerViewModel)

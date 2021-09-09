@@ -30,7 +30,7 @@ namespace CQRS.Services.Api
             }
             catch (Exception ex)
             {
-
+               
                 throw;
             }
            

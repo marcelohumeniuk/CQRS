@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using CQRS.Application.EventSourcedNormalizers;
 using CQRS.Application.Interfaces;
 using CQRS.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NetDevPack.Identity.Authorization;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CQRS.Services.Api.Controllers
 {
@@ -27,8 +26,7 @@ namespace CQRS.Services.Api.Controllers
         [HttpGet("customer-management")]
         public async Task<IEnumerable<CustomerViewModel>> Get()
         {
-          await  _ocorrenciaProducer.SendMessageOcorrencia();
-
+          //await  _ocorrenciaProducer.SendMessageOcorrencia();
             return await _customerAppService.GetAll();
         }
 
