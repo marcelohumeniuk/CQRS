@@ -46,13 +46,15 @@ namespace CQRS.Services.Api
             services.AddHealthChecksUI()
                 .AddInMemoryStorage();
 
+
+            // CONFIG CONNECTION SB AZURE
             services.AddAzureClients(builder =>
                 {
                     builder.AddServiceBusClient(Configuration.GetConnectionString("ServiceBus"));
                 });
 
 
-            services.AddSingleton<OcorrenciaProducer>();
+            //services.AddSingleton<OcorrenciaProducer>();
 
             services.AddSingleton<ServiceBusProducer>();
 
