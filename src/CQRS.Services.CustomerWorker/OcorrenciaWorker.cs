@@ -61,7 +61,7 @@ namespace CQRS.Services.CustomerWorker
                 {
                     string body = args.Message.Body.ToString();
 
-                    //ResolveReceivedQueueToBD(body);
+                    ResolveReceivedQueueToBD(body);
 
                     // COMPLETE THE MESSAGE. MESSAGES IS DELETED FROM THE QUEUE. 
                     await args.CompleteMessageAsync(args.Message);
@@ -88,7 +88,12 @@ namespace CQRS.Services.CustomerWorker
 
         }
 
-        private void ResolveReceivedQueueToBD(string body)
+        private static string NewMethod(ProcessMessageEventArgs args)
+        {
+            return args.Message.Body.ToString();
+        }
+
+        private static void ResolveReceivedQueueToBD(string body)
         {
 
             string[] keys = new string[] { "RegisterNewCustomerCommand", "UpdateCustomerCommand", "RemoveCustomerCommand" };
