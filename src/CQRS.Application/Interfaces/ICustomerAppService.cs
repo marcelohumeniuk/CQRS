@@ -17,5 +17,7 @@ namespace CQRS.Application.Interfaces
         Task<ValidationResult> Remove(Guid id);
 
         Task<IList<CustomerHistoryData>> GetAllHistory(Guid id);
+
+        void ResolveReceivedQueueToBD(string body);
     }
 }

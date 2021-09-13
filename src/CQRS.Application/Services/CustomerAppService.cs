@@ -56,7 +56,7 @@ namespace CQRS.Application.Services
 
             if (retorno.IsValid && !retorno.Errors.Any())
             {
-                //await _serviceBusProducer.SendSBMessage(QueueName.Ocorrencia, registerCommand);
+                await _serviceBusProducer.SendSBMessage(QueueName.Ocorrencia, registerCommand);
             }
 
             return retorno;

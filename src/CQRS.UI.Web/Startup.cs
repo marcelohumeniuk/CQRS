@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,6 +35,13 @@ namespace CQRS.UI.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAzureClients(builder =>
+            {
+                builder.AddServiceBusClient(Configuration.GetConnectionString("ServiceBus"));
+            });
+
+
             // MVC Settings
             services.AddControllersWithViews(options =>
             {

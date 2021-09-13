@@ -1,5 +1,8 @@
 using Azure.Messaging.ServiceBus;
+using CQRS.Application.Interfaces;
+using CQRS.Application.Services;
 using CQRS.Infra.CrossCutting.Bus.ServiceBus;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,16 +18,21 @@ namespace CQRS.Services.CustomerWorker
         private readonly ServiceBusClient _serviceBusClient;
         private ServiceBusProcessor processor;
         //private readonly ICustomerAppService _customerAppService;
+        private IServiceProvider _serviceProvider;
 
 
-        public OcorrenciaWorker(ILogger<OcorrenciaWorker> logger, 
+        public OcorrenciaWorker(ILogger<OcorrenciaWorker> logger,
             //ICustomerAppService customerAppService,
+            IServiceProvider serviceProvider,
+
             ServiceBusClient serviceBusClient)
         {
             _logger = logger;
             _serviceBusClient = serviceBusClient;
             //_customerAppService = customerAppService;
-          
+            _serviceProvider = serviceProvider;
+
+
         }
 
         public async Task ReceivedMessageOcorrencia(CancellationToken stoppingToken)
@@ -56,8 +64,13 @@ namespace CQRS.Services.CustomerWorker
                 string body = args.Message.Body.ToString();
                 _logger.LogInformation(body);
 
-                //TODO: ResolveReceivedQueueToBD
-                //ResolveReceivedQueueToBD(body);
+                using (var scope = _serviceProvider.CreateScope()) 
+                {
+
+                    var appService = scope.ServiceProvider.GetService<ICustomerAppService>();
+                    appService.ResolveReceivedQueueToBD(body);
+
+                }
 
                 // COMPLETE THE MESSAGE. MESSAGES IS DELETED FROM THE QUEUE. 
                 await args.CompleteMessageAsync(args.Message);

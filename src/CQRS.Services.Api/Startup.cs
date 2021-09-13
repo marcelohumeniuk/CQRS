@@ -56,7 +56,7 @@ namespace CQRS.Services.Api
 
             //services.AddSingleton<OcorrenciaProducer>();
 
-            services.AddSingleton<ServiceBusProducer>();
+          
 
             // WEBAPI CONFIG
             services.AddControllers();

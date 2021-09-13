@@ -44,7 +44,8 @@ namespace CQRS.Infra.Data.Repository
 
         public async Task<IEnumerable<Customer>> GetAll()
         {
-            return await DbSetRead.ToListAsync();
+            //return await DbSetRead.ToListAsync();
+            return await DbSet.ToListAsync();
         }
 
         public async Task<Customer> GetByEmail(string email)
